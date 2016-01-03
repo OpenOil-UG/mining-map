@@ -3,4 +3,5 @@
 *.pyc
 *~
 .vagrant/
+gis/landsat/
 config.py
