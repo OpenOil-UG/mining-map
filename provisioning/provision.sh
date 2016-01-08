@@ -18,13 +18,21 @@ apt-get install -y \
     python-software-properties \
     python-virtualenv \
     python-pip \
+    python-numpy \
+    python-scipy \
+    python-matplotlib \
     build-essential \
     libproj-dev \
     libgeos-dev \
     libgdal-dev \
+    libgdal1h \
+    gdal-bin \
     postgresql-9.4 \
     postgresql-9.4-postgis \
-    postgresql-contrib
+    postgresql-contrib \
+    libatlas-base-dev \
+    gfortran \
+    libfreetype6-dev
 
 # deploy custom pg_hba.conf and restart postgres server:
 rm /etc/postgresql/9.4/main/pg_hba.conf
@@ -42,9 +50,6 @@ sudo -u postgres createdb geodata --owner=vagrant
 # Setup PostGIS on databases
 sudo -u postgres psql -d geodata -c 'CREATE EXTENSION postgis;'
 
-# Install Python dependencies into dedicated virtual environment:
-su - vagrant -c 'virtualenv ~/venv'
-# su - vagrant -c 'source ~/venv/bin/activate && pip install -r /srv/mining-map/requirements.txt'
-
-# Activate virtualenv at login via .bashrc
-echo "source /home/vagrant/venv/bin/activate" >> /home/vagrant/.bashrc
+# Install landsat-util without virtual environment (does not compile
+# otherwise, maybe due to an outdated scipy version in the ubuntu repos)
+pip install landsat-util
