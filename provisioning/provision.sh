@@ -8,6 +8,10 @@ echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 apt-key add -
 
+# Add docker PPA:
+apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+add-apt-repository 'deb https://apt.dockerproject.org/repo ubuntu-trusty main'
+
 # Update package index:
 apt-get update
 
@@ -32,7 +36,11 @@ apt-get install -y \
     postgresql-contrib \
     libatlas-base-dev \
     gfortran \
-    libfreetype6-dev
+    libfreetype6-dev \
+    docker-engine
+
+# Start Docker system service
+service docker start
 
 # deploy custom pg_hba.conf and restart postgres server:
 rm /etc/postgresql/9.4/main/pg_hba.conf
