@@ -1,35 +1,37 @@
-# Mining Map
+#Mining-Map Vagrant Configs
 
-## Development Environment Setup
 
-This project is using Vagrant as development environment. It is a
-wrapper around different virtual machine / container / server providers.
-In this case, it is configured to use Virtualbox or LXC for a smaller
-ressource footprint. The properties of the virtual machine are
-configured in the Vagrantfile.
+##Installation
 
- - install Virtualbox or LXC (Linux Hosts only)
-  - Vagrant instructions: http://docs.vagrantup.com/v2/installation/index.html
-  - LXC instructions: https://github.com/fgrehm/vagrant-lxc
- - clone Repository
- - run vagrant:
-
-```bash
-# start or resume virtual machine (runs the provisioning, if there wasnt a saved state) :
-vagrant up [--provider=lxc]
-# ssh into virtual machine as user vagrant:
-vagrant ssh
-# save virtual machine and turn off
-vagrant suspend
-# destroy virtual machine before rebuilding it:
-vagrant destroy
+Clone the repository into mining-map
 ```
+git clone $repo-url mining-map
+cd mining-map
+```
+Local Mode:
+```
+cd local-mode
+# Make sure virtualbox and virtualbox-extension-box both are installed
+vagrant up --provider virtualbox
+```
+AWS Mode (CPU/GPU):
+```
+cd aws-cpu-mode #or aws-gpu-mode
+# Add dummy aws box
+vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
+# Make sure vagrant-aws plugin is installed
+vagrant plugin install vagrant-aws
 
- - log in to work inside the VM:
 
-```bash
-vagrant ssh
+cp .mining-map.secret.yml.example .mining-map.secret.yml
+#And then edit .mining-map.secret.yml to fill in the necessary details !!
 
-# change to synced directory
-cd /srv/mining-map
+# If you are sharing the control of the same instance between multiple people,
+# Ask the creator of the instance to share the `.vagrant` folder from both the
+# cpu-mode and gpu-mode Vagrant configs, and place them at their appropriate locations
+# At : aws-cpu-mode/.vagrant in case of cpu-mode
+# At : aws-gpu-mode/.vagrant in case of gpu-mode
+
+# Let's spawn some VMs!
+vagrant up --provider aws
 ```

@@ -1,7 +1,11 @@
-# Ignore some files and folders from versioning:
+local-mode/mining-map/
+local-mode/.vagrant
+aws-cpu-mode/.vagrant
+aws-cpu-mode/dump.rdb
+aws-cpu-mode/.mining-map.secret.yml
+aws-gpu-mode/.vagrant
+aws-gpu-mode/dump.rdb
+aws-gpu-mode/.mining-map.secret.yml
+dump.rdb
 
-*.pyc
-*~
-.vagrant/
-gis/landsat/
-config.py
+mining-map/digits/*
