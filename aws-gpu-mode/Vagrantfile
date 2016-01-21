@@ -45,7 +45,7 @@ Vagrant.configure(2) do |config|
       aws.ami = "ami-47a23a30" #http://cloud-images.ubuntu.com/releases/14.04/release-20150325/
       aws.region = "eu-west-1"
       aws.instance_type = "g2.2xlarge"
-      aws.elastic_ip = mining_map_config['aws_elastic_ip']
+      #aws.elastic_ip = mining_map_config['aws_elastic_ip']
 
       aws.block_device_mapping = [
           {
