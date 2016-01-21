@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
 
-  # config.vm.box = "ubuntu/trusty32"
+  # config.vm.box = "ubuntu/utopic64"
   # using lxc as provider requires a special base box:
   config.vm.box = "fgrehm/trusty64-lxc"
 
@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provider :lxc do |lxc|
-    lxc.customize 'cgroup.memory.limit_in_bytes', '512M'
+    lxc.customize 'cgroup.memory.limit_in_bytes', '1000M'
   end
 
   config.vm.provision "shell", path: "provisioning/provision.sh"
