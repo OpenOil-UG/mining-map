@@ -10,16 +10,16 @@ ls = Search()
 
 ls_search_results_all = []
 
-geojson = json.loads(open('osm/centroids.geojson').read())
+geojson = json.loads(open('osm/centroids-test.geojson').read())
 
 features = geojson['features']
 
 for f in features:
-    lat = str(f['geometry']['coordinates'][0])
-    lon = str(f['geometry']['coordinates'][1])
+    lat = str(f['geometry']['coordinates'][1])
+    lon = str(f['geometry']['coordinates'][0])
     #id  = f['properties']['@id']
 
-    scenes = ls.search(lat=lat, lon=lon, cloud_max=100, limit=200)
+    scenes = ls.search(lat=lat, lon=lon, cloud_max=10, limit=200)
 
     # check if there are results
     if scenes.has_key('results'):
