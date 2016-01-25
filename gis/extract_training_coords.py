@@ -1,5 +1,5 @@
 import json
-import subprocess
+from subprocess import Popen, PIPE, STDOUT
 from landsat.search import Search
 
 # disable these nasty 'insecure platform' warnings:
@@ -27,7 +27,26 @@ for f in features:
         scene_chosen = min(scenes['results'], key=lambda x: x['cloud'])
         ls_search_results_all.append(scene_chosen)
 
+        # download and clip
+        params={
+            'dest': 'gis/landsat',
+            'scene': scene_chosen['sceneID'],
+            'lon_min': float(lon)-0.02,
+            'lon_max': float(lon)+0.02,
+            'lat_min': float(lat)-0.02,
+            'lat_max': float(lat)+0.02
+        }
+
+        cmd = '''landsat download {scene} \
+            -p \
+            --pansharpen \
+            --clip {lon_min},{lat_min},{lon_max},{lat_max} \
+            -d {dest}
+        '''.format(**params)
+
+        p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
+        output = p.stdout.read()
+        print output
+
     else:
         pass
-
-print ls_search_results_all
