@@ -7,8 +7,6 @@ Vagrant.configure(2) do |config|
   # using lxc as provider requires a special base box:
   config.vm.box = "fgrehm/trusty64-lxc"
 
-  config.vm.network :forwarded_port, host: 5433, guest: 5432
-
   config.vm.synced_folder ".", "/srv/mining-map/"
 
   config.vm.provider "virtualbox" do |vb|
@@ -17,7 +15,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provider :lxc do |lxc|
-    lxc.customize 'cgroup.memory.limit_in_bytes', '1000M'
+    lxc.customize 'cgroup.memory.limit_in_bytes', '2048M'
   end
 
   config.vm.provision "shell", path: "provisioning/provision.sh"
