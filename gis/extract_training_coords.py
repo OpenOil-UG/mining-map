@@ -37,12 +37,7 @@ for f in features:
             'lat_max': float(lat)+0.02
         }
 
-        cmd = '''landsat download {scene} \
-            -p \
-            --pansharpen \
-            --clip {lon_min},{lat_min},{lon_max},{lat_max} \
-            -d {dest}
-        '''.format(**params)
+        cmd = '''landsat download {scene} -p --pansharpen --clip={lon_min},{lat_min},{lon_max},{lat_max}'''.format(**params)
 
         p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
         output = p.stdout.read()
