@@ -5,3 +5,5 @@
 .vagrant/
 gis/landsat/
 config.py
+
+aws-cpu-mode/.mining-map.secret.yml
